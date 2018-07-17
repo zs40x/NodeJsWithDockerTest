@@ -12,7 +12,6 @@
       "address": "localhost",
       "restart": true,
       "sourceMaps": false,
-      "outDir": null,
       "localRoot": "${workspaceRoot}",
       "remoteRoot": "/code"
     }

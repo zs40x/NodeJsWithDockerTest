@@ -9,7 +9,7 @@
     "devDependencies": {
       "@types/node": "^6.0.50",
       "typescript": "^2.3.2",
-      "nodemon": "^1.11.0"
+      "nodemon": "^1.82.2"
     },
     "main": "./src/index.js"
   }
