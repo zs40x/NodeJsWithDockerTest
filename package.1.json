@@ -1,0 +1,15 @@
+{
+    "name": "test-1",
+    "version": "0.0.0",
+    "scripts": {
+      "debug": "nodemon --watch ./src --inspect=0.0.0.0:9222 --nolazy ./src/index.js",
+      "docker-debug": "docker-compose up",
+      "start": "node ./src/index.js"
+    },
+    "devDependencies": {
+      "@types/node": "^6.0.50",
+      "typescript": "^2.3.2",
+      "nodemon": "^1.11.0"
+    },
+    "main": "./src/index.js"
+  }
