@@ -6,13 +6,6 @@ entryRepository.init(database);
 
 var entryModel = require("./entryModel");
 entryModel.init(entryRepository);
-/*entryRepository.allEntries(function (err, entries) {
-    if(entries) {
-      entries.forEach(function (item) {
-        entryModel.append(item.entry);
-      });
-    }
-});*/
 
 var express = require('express');
 var expressHandlebars  = require('express-handlebars');
