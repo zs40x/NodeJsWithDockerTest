@@ -5,7 +5,7 @@
 !.vscode/launch.json
 !.vscode/extensions.json
 
-data/
+data/*
 
 # Logs
 logs
