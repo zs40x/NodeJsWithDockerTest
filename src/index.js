@@ -24,7 +24,7 @@ app.set('view engine', 'html');
 app.set('views', __dirname);
 
 var controllers = require("./controllers");
-controllers.init(app, database, entryModel, entryRepository);
+controllers.init(app, entryModel, entryRepository);
 
 var http = require('http');
 http.Server(app).listen(PORT, function() {

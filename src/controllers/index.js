@@ -3,8 +3,8 @@
     var homeController = require("./homeController");
     var entryController = require("./entryController")
 
-    controllers.init = function(app, database, entryModel, entryRepository) {
+    controllers.init = function(app, entryModel, entryRepository) {
         homeController.init(app, entryModel);
-        entryController.init(app, database, entryModel, entryRepository);
+        entryController.init(app, entryRepository);
     };
 })(module.exports);

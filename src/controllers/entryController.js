@@ -1,6 +1,6 @@
 (function (entryController) {
 
-    entryController.init = function (app, database, entryModel, repository) {
+    entryController.init = function (app, repository) {
 
         app.get("/entry", function(req,res) {
             repository.allEntries(function (err, entries) {
