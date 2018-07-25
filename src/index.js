@@ -33,6 +33,25 @@ app.get('/', function(req, res) {
 
   res.render('index', {message: message});
 });
+
+app.get("/entry", function(req,res) {
+  database.getDb(function (err, db) {
+    if(err) {
+      res.status(500).json(err);
+      return;
+    }
+
+    db.entries.find({}).toArray(function (err, docs) {
+      if(err) {
+        res.status(500).json(err);
+        return;
+      }
+
+      res.status(200).json(docs);
+    });
+  });
+});
+
 app.post('/entry', function(req, res) {
   if (!req.body) return res.sendStatus(400)
   LINES.push(req.body.entry);
