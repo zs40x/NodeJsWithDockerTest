@@ -1,6 +1,6 @@
 (function (entryController) {
 
-    entryController.init = function (app, database) {
+    entryController.init = function (app, database, entryModel) {
 
         app.get("/entry", function(req,res) {
             database.getDb(function (err, db) {
@@ -21,8 +21,7 @@
         });
         
         app.post('/entry', function(req, res) {
-            if (!req.body) return res.sendStatus(400)
-            //LINES.push(req.body.entry);
+            if (!req.body) return res.sendStatus(400);
             
             database.getDb(function (err, db) {
                 if(err) {
@@ -43,6 +42,8 @@
                         });
                         return;
                     }
+
+                    entryModel.append(req.body.entry);
                 
                     res.status(201).json(req.body);
                 });

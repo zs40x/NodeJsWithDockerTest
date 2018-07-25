@@ -11,4 +11,8 @@
         return entries;
     }
 
+    entryModel.append = function (newEntry) {
+        entries.push(newEntry);
+    }
+
 })(module.exports);
