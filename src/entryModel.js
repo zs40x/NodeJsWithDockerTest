@@ -7,7 +7,8 @@
     }
 
     entryModel.all = function(next) {
-        repository.getAll(function (err, entries) {
+        
+        this.repository.allEntries(function (err, entries) {
             if(err) {
                 next(err, null);
                 return;

@@ -5,15 +5,17 @@
         var lineIndex = 0;
 
         app.get('/', function(req, res) {
-            var entries = entryModel.all();
-            var message = entries[lineIndex];
+            entryModel.all((err, entries) => {
+            
+                var message = entries[lineIndex];
           
-            lineIndex += 1;
-            if (lineIndex > entries.length) {
-                lineIndex = 0;
-            }
-          
-            res.render('index', {message: message});
+                lineIndex += 1;
+                if (lineIndex > entries.length) {
+                    lineIndex = 0;
+                }
+            
+                res.render('index', {message: message});
+            });
           });
     };
 
