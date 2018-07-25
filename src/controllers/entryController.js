@@ -36,15 +36,15 @@
                 };
             
                 db.entries.insertOne(record, function (err, r) {
-                if(err) {
-                    res.status(500).json({
-                        status: "Internal server error",
-                        error: err
-                    });
-                    return;
-                }
-            
-                res.status(201).json(req.body);
+                    if(err) {
+                        res.status(500).json({
+                            status: "Internal server error",
+                            error: err
+                        });
+                        return;
+                    }
+                
+                    res.status(201).json(req.body);
                 });
             }); 
         });
