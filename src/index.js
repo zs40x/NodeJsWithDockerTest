@@ -12,6 +12,14 @@ app.use(bodyParser.json());
 
 var entryModel = require("./entryModel");
 
+database.getDb(function (err, db) {
+  if(!err) {
+    db.entries.find({}).each(function (err, doc) {
+      if(doc) entryModel.append(doc.entry);
+    });
+  }
+});
+
 var controllers = require("./controllers");
 controllers.init(app, database, entryModel);
 
