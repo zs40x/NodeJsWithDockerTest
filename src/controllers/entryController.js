@@ -1,7 +1,5 @@
 (function (entryController) {
 
-    var mongodb = require("mongodb");
-
     entryController.init = function (app, database, entryModel, repository) {
 
         app.get("/entry", function(req,res) {
@@ -31,30 +29,22 @@
         });
 
         app.delete('/entry/:id', function (req, res) {
+            repository.deleteById(req.params.id, (notFound, error) => {
 
-            database.getDb(function (err, db) {
-                if(err) {
-                    rs.status(500).json(err);
+                if(notFound) {
+                    res.status(404).json({ 
+                        status: "Not Found",
+                        id: req.params.id
+                    });
                     return;
                 }
 
-                db.entries.deleteOne({
-                        _id : new mongodb.ObjectID(req.params.id)
-                    }, function (err, r) {
-                    if(err) {
-                        rs.status(500).json(err);
-                        return;
-                    } 
+                if(error) {
+                    res.status(500).json(err);
+                    return;
+                }
 
-                    if(r.deletedCount == 0) {
-                        res.status(404).json({ 
-                            status: "Not Found",
-                            id: req.params.id
-                        });
-                    } else {
-                        res.status(200).json({ status: "Ok" });
-                    }
-                })
+                res.status(200).json({ status: "Ok" });
             });
         });
     }

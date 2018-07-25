@@ -1,5 +1,7 @@
 (function (entryRepository) {
 
+    var mongodb = require("mongodb");
+
     entryRepository.init = function(database) {
         this.database = database;
     }
@@ -43,6 +45,29 @@
                 next(null, r.ops[0]);
             });
         }); 
+    };
+
+    entryRepository.deleteById = function(id, next) {
+        this.database.getDb(function (err, db) {
+            if(err) {
+                next(false, err);
+            }
+
+            db.entries.deleteOne({
+                    _id : new mongodb.ObjectID(id)
+                }, function (err, r) {
+                if(err) {
+                    next(false, err);
+                    return;
+                } 
+
+                if(r.deletedCount == 0) {
+                    next(true, null);
+                } else {
+                    next(false, null);
+                }
+            })
+        });
     }
 
 })(module.exports);
