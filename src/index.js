@@ -1,8 +1,8 @@
 const PORT = 8000;
 
 var database = require("./database");
-var entryRepository = require("./repositories/entryRepository");
-entryRepository.init(database);
+require("./repositories/entryRepository");
+var entryRepository = new EntryRepository(database);
 
 var entryModel = require("./entryModel");
 entryModel.init(entryRepository);

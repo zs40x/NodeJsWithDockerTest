@@ -1,12 +1,12 @@
-(function (entryRepository) {
+const mongodb = require("mongodb");
 
-    var mongodb = require("mongodb");
+global.EntryRepository = class EntryRepository {
 
-    entryRepository.init = (database) => {
+    constructor(database) {
         this.database = database;
     }
 
-    entryRepository.allEntries = (next) => {
+    allEntries(next) {
         this.database.getDb(function (err, db) {
             if(err) {
                 next(err, null);
@@ -22,9 +22,9 @@
                 next(null, docs)
             });
           });
-    };
+    }
 
-    entryRepository.appendEntry = (entry, next) => {
+    appendEntry(entry, next) {
         this.database.getDb(function (err, db) {
             if(err) {
                 next(err, null);
@@ -45,9 +45,9 @@
                 next(null, r.ops[0]);
             });
         }); 
-    };
+    }
 
-    entryRepository.deleteById = (id, next)  => {
+    deleteById(id, next) {
         this.database.getDb(function (err, db) {
             if(err) {
                 next(false, err);
@@ -69,5 +69,6 @@
             })
         });
     }
+}
 
-})(module.exports);
+module.exports = EntryRepository;
