@@ -12,8 +12,9 @@ var LINES = [
   "And all that glitters is gold",
   "Only shooting stars break the mold",
 ];
-
 var lineIndex = 0;
+
+var controllers = require("./controllers");
 
 var database = require("./database");
 
