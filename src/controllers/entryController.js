@@ -5,17 +5,17 @@
         app.get("/entry", function(req,res) {
             database.getDb(function (err, db) {
                 if(err) {
-                res.status(500).json(err);
-                return;
-                }
-            
-                db.entries.find({}).toArray(function (err, docs) {
-                if(err) {
                     res.status(500).json(err);
                     return;
                 }
             
-                res.status(200).json(docs);
+                db.entries.find({}).toArray(function (err, docs) {
+                    if(err) {
+                        res.status(500).json(err);
+                        return;
+                    }
+                
+                    res.status(200).json(docs);
                 });
             });
         });
