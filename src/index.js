@@ -7,13 +7,13 @@ var http = require('http');
 var PORT = 8000;
 
 var database = require("./database");
-
 var app = express();
 app.use(bodyParser.json());
 
+var entryModel = require("./entryModel");
 
 var controllers = require("./controllers");
-controllers.init(app, database);
+controllers.init(app, database, entryModel);
 
 app.engine('html', expressHandlebars());
 app.set('view engine', 'html');
