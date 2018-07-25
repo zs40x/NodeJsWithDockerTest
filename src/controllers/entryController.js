@@ -7,7 +7,7 @@
         app.get("/entry", function(req,res) {
             repository.allEntries(function (err, entries) {
                 if(err) {
-                    res.status(500).json(error);
+                    res.status(500).json(err);
                     return;
                 }
 

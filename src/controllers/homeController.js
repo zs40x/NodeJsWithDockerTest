@@ -6,6 +6,11 @@
 
         app.get('/', function(req, res) {
             entryModel.all((err, entries) => {
+
+                if(err) {
+                    res.render('index', {message: err});
+                    return;
+                }
             
                 var message = entries[lineIndex];
           
