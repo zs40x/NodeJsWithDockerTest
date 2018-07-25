@@ -12,14 +12,16 @@ app.set('view engine', 'html');
 app.set('views', __dirname);
 
 var entryModel = require("./entryModel");
-
 var database = require("./database");
-database.getDb(function (err, db) {
-  if(!err) {
-    db.entries.find({}).each(function (err, doc) {
-      if(doc) entryModel.append(doc.entry);
-    });
-  }
+
+var entryRepository = require("./repositories/entryRepository");
+entryRepository.init(database);
+entryRepository.allEntries(function (err, entries) {
+    if(entries) {
+      entries.forEach(function (item) {
+        entryModel.append(item.entry);
+      });
+    }
 });
 
 var controllers = require("./controllers");
