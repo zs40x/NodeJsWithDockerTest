@@ -18,31 +18,16 @@
         app.post('/entry', function(req, res) {
             if (!req.body) return res.sendStatus(400);
             
-            database.getDb(function (err, db) {
+            repository.appendEntry(req.body.entry, function(err, entry) {
                 if(err) {
-                    res.status(500).json(err);
-                    return;
+                    res.status(500).json({
+                        status: "Internal server error",
+                        error: err
+                    });
                 }
-            
-                var record ={
-                    entry: req.body.entry,
-                    created: Date()
-                };
-            
-                db.entries.insertOne(record, function (err, r) {
-                    if(err) {
-                        res.status(500).json({
-                            status: "Internal server error",
-                            error: err
-                        });
-                        return;
-                    }
 
-                    entryModel.append(req.body.entry);
-                
-                    res.status(201).json(req.body);
-                });
-            }); 
+                res.status(201).json(entry);
+            });
         });
 
         app.delete('/entry/:id', function (req, res) {

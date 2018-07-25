@@ -22,4 +22,27 @@
           });
     };
 
+    entryRepository.appendEntry = function (entry, next) {
+        this.database.getDb(function (err, db) {
+            if(err) {
+                next(err, null);
+                return;
+            }
+        
+            var record ={
+                entry: entry,
+                created: Date()
+            };
+        
+            db.entries.insertOne(record, function (err, r) {
+                if(err) {
+                    next(err, null);
+                    return;
+                }
+
+                next(null, r.ops[0]);
+            });
+        }); 
+    }
+
 })(module.exports);
