@@ -15,6 +15,8 @@ var LINES = [
 
 var lineIndex = 0;
 
+var database = require("./database");
+
 var app = express();
 app.use(bodyParser.json());
 
@@ -34,7 +36,20 @@ app.get('/', function(req, res) {
 app.post('/entry', function(req, res) {
   if (!req.body) return res.sendStatus(400)
   LINES.push(req.body.entry);
-  res.status(201).json(req.body);
+
+  database.getDb(function (err, db) {
+    if(err) {
+      res.status(500).json(err);
+      return;
+    }
+
+    db.entries.insertOne(req.body.entry, function (err) {
+      res.status(500).json(err);
+      return;
+    });
+
+    res.status(201).json(req.body);
+  }); 
 });
 
 http.Server(app).listen(PORT, function() {

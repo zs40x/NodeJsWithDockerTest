@@ -9,6 +9,10 @@ services:
     ports:
       - "8000:8000"
       - "5858:5858"
+    links:
+      - mongo
+    depends_on:
+      - mongo
   mongo:
     container_name: mongo
     image: mongo
