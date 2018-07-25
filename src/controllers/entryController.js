@@ -1,5 +1,7 @@
 (function (entryController) {
 
+    var mongodb = require("mongodb");
+
     entryController.init = function (app, database, entryModel) {
 
         app.get("/entry", function(req,res) {
@@ -48,6 +50,34 @@
                     res.status(201).json(req.body);
                 });
             }); 
+        });
+
+        app.delete('/entry/:id', function (req, res) {
+
+            database.getDb(function (err, db) {
+                if(err) {
+                    rs.status(500).json(err);
+                    return;
+                }
+
+                db.entries.deleteOne({
+                        _id : new mongodb.ObjectID(req.params.id)
+                    }, function (err, r) {
+                    if(err) {
+                        rs.status(500).json(err);
+                        return;
+                    } 
+
+                    if(r.deletedCount == 0) {
+                        res.status(404).json({ 
+                            status: "Not Found",
+                            id: req.params.id
+                        });
+                    } else {
+                        res.status(200).json({ status: "Ok" });
+                    }
+                })
+            });
         });
     }
 })(module.exports);
