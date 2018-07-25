@@ -2,23 +2,16 @@
 
     var mongodb = require("mongodb");
 
-    entryController.init = function (app, database, entryModel) {
+    entryController.init = function (app, database, entryModel, repository) {
 
         app.get("/entry", function(req,res) {
-            database.getDb(function (err, db) {
+            repository.allEntries(function (err, entries) {
                 if(err) {
-                    res.status(500).json(err);
+                    res.status(500).json(error);
                     return;
                 }
-            
-                db.entries.find({}).toArray(function (err, docs) {
-                    if(err) {
-                        res.status(500).json(err);
-                        return;
-                    }
-                
-                    res.status(200).json(docs);
-                });
+
+                res.status(200).json(entries);
             });
         });
         

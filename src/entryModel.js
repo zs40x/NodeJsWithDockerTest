@@ -6,17 +6,15 @@
         this.repository = repository;
     }
 
-    entryModel.all = function() {
-        return entries;
-        /*repository.getAll(function (err, entries) {
+    entryModel.all = function(next) {
+        repository.getAll(function (err, entries) {
             if(err) {
                 next(err, null);
                 return;
             }
 
-            entries.map(x => x.entry);
-
-        });*/
+            next(null, entries.map(x => x.entry));
+        });
     }
 
     entryModel.append = function (newEntry) {

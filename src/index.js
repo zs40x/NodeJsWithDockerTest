@@ -6,13 +6,13 @@ entryRepository.init(database);
 
 var entryModel = require("./entryModel");
 entryModel.init(entryRepository);
-entryRepository.allEntries(function (err, entries) {
+/*entryRepository.allEntries(function (err, entries) {
     if(entries) {
       entries.forEach(function (item) {
         entryModel.append(item.entry);
       });
     }
-});
+});*/
 
 var express = require('express');
 var expressHandlebars  = require('express-handlebars');
@@ -24,7 +24,7 @@ app.set('view engine', 'html');
 app.set('views', __dirname);
 
 var controllers = require("./controllers");
-controllers.init(app, database, entryModel);
+controllers.init(app, database, entryModel, entryRepository);
 
 var http = require('http');
 http.Server(app).listen(PORT, function() {
