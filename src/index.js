@@ -1,4 +1,4 @@
-var PORT = 8000;
+const PORT = 8000;
 
 var database = require("./database");
 var entryRepository = require("./repositories/entryRepository");
