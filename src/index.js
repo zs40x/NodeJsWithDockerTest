@@ -43,12 +43,22 @@ app.post('/entry', function(req, res) {
       return;
     }
 
-    db.entries.insertOne(req.body.entry, function (err) {
-      res.status(500).json(err);
-      return;
-    });
+    var record ={
+      entry: req.body.entry,
+      created: Date()
+    };
 
-    res.status(201).json(req.body);
+    db.entries.insertOne(record, function (err, r) {
+      if(err) {
+        res.status(500).json({
+          status: "Internal server error",
+          error: err
+        });
+        return;
+      }
+
+      res.status(201).json(req.body);
+    });
   }); 
 });
 
