@@ -2,11 +2,11 @@
 
     var mongodb = require("mongodb");
 
-    entryRepository.init = function(database) {
+    entryRepository.init = (database) => {
         this.database = database;
     }
 
-    entryRepository.allEntries = function (next) {
+    entryRepository.allEntries = (next) => {
         this.database.getDb(function (err, db) {
             if(err) {
                 next(err, null);
@@ -24,7 +24,7 @@
           });
     };
 
-    entryRepository.appendEntry = function (entry, next) {
+    entryRepository.appendEntry = (entry, next) => {
         this.database.getDb(function (err, db) {
             if(err) {
                 next(err, null);
@@ -47,7 +47,7 @@
         }); 
     };
 
-    entryRepository.deleteById = function(id, next) {
+    entryRepository.deleteById = (id, next)  => {
         this.database.getDb(function (err, db) {
             if(err) {
                 next(false, err);
