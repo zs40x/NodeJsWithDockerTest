@@ -9,3 +9,10 @@ services:
     ports:
       - "8000:8000"
       - "5858:5858"
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
