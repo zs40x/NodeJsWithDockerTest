@@ -1,9 +1,10 @@
 var PORT = 8000;
 
-var entryModel = require("./entryModel");
 var database = require("./database");
 var entryRepository = require("./repositories/entryRepository");
 entryRepository.init(database);
+
+var entryModel = require("./entryModel");
 entryRepository.allEntries(function (err, entries) {
     if(entries) {
       entries.forEach(function (item) {
