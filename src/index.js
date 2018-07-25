@@ -5,6 +5,7 @@ var entryRepository = require("./repositories/entryRepository");
 entryRepository.init(database);
 
 var entryModel = require("./entryModel");
+entryModel.init(entryRepository);
 entryRepository.allEntries(function (err, entries) {
     if(entries) {
       entries.forEach(function (item) {
