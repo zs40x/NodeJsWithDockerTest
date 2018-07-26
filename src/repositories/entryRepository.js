@@ -7,13 +7,13 @@ global.EntryRepository = class EntryRepository {
     }
 
     allEntries(next) {
-        this.database.getDb(function (err, db) {
+        this.database.getDb((err, db) => {
             if(err) {
                 next(err, null);
                 return;
             }
             
-            db.entries.find({}).toArray(function (err, docs) {
+            db.entries.find({}).toArray( (err, docs) => {
                 if(err) {
                     next(err, null);
                     return;
@@ -25,7 +25,7 @@ global.EntryRepository = class EntryRepository {
     }
 
     appendEntry(entry, next) {
-        this.database.getDb(function (err, db) {
+        this.database.getDb((err, db) => {
             if(err) {
                 next(err, null);
                 return;
@@ -48,14 +48,14 @@ global.EntryRepository = class EntryRepository {
     }
 
     deleteById(id, next) {
-        this.database.getDb(function (err, db) {
+        this.database.getDb((err, db) => {
             if(err) {
                 next(false, err);
             }
 
             db.entries.deleteOne({
                     _id : new mongodb.ObjectID(id)
-                }, function (err, r) {
+                }, (err, r) => {
                 if(err) {
                     next(false, err);
                     return;
