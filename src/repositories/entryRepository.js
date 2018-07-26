@@ -30,16 +30,15 @@ global.EntryRepository = class EntryRepository {
                 return;
             }
         
-            var record ={
-                entry: entry,
-                created: Date()
-            };
-        
-            db.entries.insertOne(record, (err, r) => {
-                return err
-                    ? next(err, null)
-                    : next(null, r.ops[0]);
-            });
+            db.entries.insertOne({
+                    entry: entry,
+                    created: Date()
+                }, 
+                (err, r) => {
+                    return err
+                        ? next(err, null)
+                        : next(null, r.ops[0]);
+                });
         }); 
     }
 
