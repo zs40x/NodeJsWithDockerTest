@@ -2,24 +2,14 @@
 
     homeController.init = function(app, entryModel) {
 
-        var lineIndex = 0;
-
         app.get('/', function(req, res) {
-            entryModel.all((err, entries) => {
-
+            
+            entryModel.nextEntry((err, entry) => {
                 if(err) {
                     res.render('index', {message: err});
-                    return;
+                } else {
+                    res.render('index', {message: entry});
                 }
-            
-                var message = entries[lineIndex];
-          
-                lineIndex += 1;
-                if (lineIndex > entries.length) {
-                    lineIndex = 0;
-                }
-            
-                res.render('index', {message: message});
             });
           });
     };
