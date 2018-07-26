@@ -6,7 +6,10 @@
             
             entryModel.nextEntry((err, entry) => {
                 if(err) {
-                    res.render('index', {message: err});
+                    res.render('index', {
+                        error: true,
+                        message: err
+                    });
                 } else {
                     res.render('index', {message: entry});
                 }
