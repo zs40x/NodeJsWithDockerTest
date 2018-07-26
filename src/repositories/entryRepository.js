@@ -13,14 +13,16 @@ global.EntryRepository = class EntryRepository {
                 return;
             }
             
-            db.entries.find({}).toArray( (err, docs) => {
-                if(err) {
-                    next(err, null);
-                    return;
-                }
-            
-                next(null, docs)
-            });
+            db.entries
+                .find({})
+                .toArray( (err, docs) => {
+                    if(err) {
+                        next(err, null);
+                        return;
+                    }
+                
+                    next(null, docs)
+                });
           });
     }
 
@@ -36,7 +38,7 @@ global.EntryRepository = class EntryRepository {
                 created: Date()
             };
         
-            db.entries.insertOne(record, function (err, r) {
+            db.entries.insertOne(record, (err, r) => {
                 if(err) {
                     next(err, null);
                     return;
@@ -56,17 +58,15 @@ global.EntryRepository = class EntryRepository {
             db.entries.deleteOne({
                     _id : new mongodb.ObjectID(id)
                 }, (err, r) => {
-                if(err) {
-                    next(false, err);
-                    return;
-                } 
+                    if(err) {
+                        next(false, err);
+                        return;
+                    } 
 
-                if(r.deletedCount == 0) {
-                    next(true, null);
-                } else {
-                    next(false, null);
-                }
-            })
+                    return r.deletedCount == 0
+                        ? next(true, null)
+                        : next(false, null);
+                })
         });
     }
 }
