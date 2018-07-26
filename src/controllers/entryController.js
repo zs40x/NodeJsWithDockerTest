@@ -5,10 +5,13 @@
         app.get("/entry", function(req,res) {
             repository.allEntries(function (err, entries) {
                 if(err) {
-                    res.status(500).json(err);
+                    res.status(500).json({
+                        status: "Internal Server Error",
+                        error: err
+                    });
                     return;
                 }
-
+                
                 res.status(200).json(entries);
             });
         });
@@ -40,7 +43,10 @@
                 }
 
                 if(error) {
-                    res.status(500).json(err);
+                    res.status(500).json({
+                        status: "Internal Server Error",
+                        error: err
+                    });
                     return;
                 }
 
